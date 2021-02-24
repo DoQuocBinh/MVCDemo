@@ -18,6 +18,7 @@ namespace MyToyShop.Models
         }
 
         public virtual DbSet<MyToy> MyToys { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -48,6 +49,17 @@ namespace MyToyShop.Models
                 entity.Property(e => e.Price)
                     .HasColumnType("decimal(18, 0)")
                     .HasColumnName("price");
+            });
+
+            modelBuilder.Entity<Student>(entity =>
+            {
+                entity.ToTable("Student");
+
+                entity.Property(e => e.Age).HasColumnName("age");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
             });
 
             OnModelCreatingPartial(modelBuilder);
